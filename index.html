@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HogarPro — Mockup Demo</title>
+  <meta name="theme-color" content="#16a34a" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --panel:#ffffff;
+      --text:#111827;
+      --muted:#475569;
+      --border:rgba(2,6,23,0.10);
+      --brand:#16a34a;
+      --accent:#3b82f6;
+      --danger:#ef4444;
+      --bubble-me:#e8f5ff;
+      --bubble-them:#eef2ff;
+      --hammer:#fbbf24;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;overflow-x:hidden}
+    .phone-wrap{min-height:100%;display:grid;place-items:center;padding:18px}
+    .phone{width:430px;max-width:100%;height:840px;max-height:calc(100vh - 36px);background:linear-gradient(180deg, #ffffff, #fafbff);border:1px solid var(--border);border-radius:26px;box-shadow:0 20px 60px rgba(0,0,0,.16);overflow:hidden;display:grid;grid-template-rows:auto 1fr auto}
+    .topbar{position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.85));backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+    .container{padding:12px 14px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand-logo{width:34px;height:34px;border-radius:8px;background:conic-gradient(from 45deg, #22c55e, #60a5fa);display:grid;place-items:center;color:#05240f}
+    .muted{color:var(--muted)}
+    .content{overflow:auto}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.05)}
+    .pad{padding:16px}
+    .btn{appearance:none;border:1px solid var(--border);background:#f1f5f9;color:var(--text);padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:600}
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),#22c55e);color:white;border:none}
+    .btn-ghost{background:transparent}
+    .input, textarea.input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:white;color:var(--text)}
+    .label{font-size:13px;color:#334155}
+    .grid{display:grid;gap:14px}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .center{display:grid;place-items:center}
+    .row{display:flex;gap:10px;align-items:center}
+    .space-between{display:flex;justify-content:space-between;align-items:center}
+    .splash-login{display:grid;gap:14px;padding:12px}
+    .logo-wrap{display:grid;gap:8px;justify-items:center}
+    .logo-ring{width:120px;height:120px;border-radius:24px;display:grid;place-items:center;background:radial-gradient(closest-side, #e2f2e9, #eaf2ff)}
+    .logo-core{width:76px;height:76px;border-radius:18px;background:conic-gradient(from 0deg, #22c55e, #60a5fa);animation:pulse 1.2s ease-in-out infinite alternate}
+    @keyframes pulse{from{transform:scale(.96) rotate(0)}to{transform:scale(1) rotate(8deg)}}
+    .post{display:grid;gap:10px}
+    .post-header{display:flex;gap:10px}
+    .avatar{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#cbd5e1,#e2e8f0)}
+    .img-ph{height:180px;border-radius:12px;border:1px dashed var(--border);display:grid;place-items:center;color:#64748b;background:#ffffff}
+    .tag{border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:12px;color:#334155;background:#f8fafc}
+    .chat{display:grid;gap:8px}
+    .bubble{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.35;word-wrap:break-word}
+    .me{background:var(--bubble-me);margin-left:auto;border:1px solid #bfdbfe}
+    .them{background:var(--bubble-them);margin-right:auto;border:1px solid #c7d2fe}
+    .ts{font-size:11px;color:#64748b;margin-top:4px}
+    .tabbar{position:sticky;bottom:0;background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.86));backdrop-filter:saturate(1.1) blur(6px);border-top:1px solid var(--border)}
+    .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .tab{display:grid;place-items:center;padding:10px;border-radius:12px}
+    .tab.active{background:#f1f5f9}
+    .rating{display:flex;gap:6px}
+    .hammer{width:22px;height:22px;cursor:pointer}
+    .hammer svg{display:block}
+    .hammer .fill{fill:var(--hammer)}
+    .hammer .stroke{stroke:var(--hammer);stroke-width:2;fill:none}
+    .hammer.inactive .fill{fill:transparent}
+    .hammer.inactive .stroke{opacity:1}
+    .hammer.active{filter:drop-shadow(0 0 6px rgba(251,191,36,.6))}
+    @media (max-width:460px){.phone{height:100vh}}
+  </style>
+</head>
+<body>
+  <div class="phone-wrap">
+    <div class="phone" id="phone">
+      <header class="topbar">
+        <div class="container space-between">
+          <div class="brand"><div class="brand-logo">🛠️</div> HogarPro <span class="muted" style="font-weight:400">· Demo</span></div>
+          <nav class="row">
+            <button class="btn btn-ghost" data-nav="login">Salir</button>
+          </nav>
+        </div>
+      </header>
+      <main class="content" id="view"></main>
+      <footer class="tabbar" id="tabbar" style="display:none">
+        <div class="container tabs">
+          <button class="tab" data-tab="feed" aria-label="Inicio">🏠<div class="muted" style="font-size:12px">Inicio</div></button>
+          <button class="tab" data-tab="chats" aria-label="Chats">💬<div class="muted" style="font-size:12px">Chats</div></button>
+          <button class="tab" data-tab="profile" aria-label="Perfil">👤<div class="muted" style="font-size:12px">Perfil</div></button>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script>
+  (function(){
+    const state = {
+      route: 'loginHero',
+      user: null,
+      selectedPostId: null,
+      posts: [
+        { id: 1, tipo:'cliente', titulo:'Cambio de llave mezcladora en cocina', cliente:'María Rodríguez', barrio:'Ñuñoa, Santiago', presupuesto:'$40.000 - $60.000', fecha:'hoy 10:24', descripcion:'La llave gotea y el caudal es bajo. Tengo la llave nueva, solo instalar.', imagen:true, categoria:'Gasfitería' },
+        { id: 2, tipo:'cliente', titulo:'Pintar pared exterior 12 m²', cliente:'Carlos Pérez', barrio:'Maipú, Santiago', presupuesto:'$120.000', fecha:'ayer 18:11', descripcion:'Muro con leve humedad ya tratada. Pintura al agua incluida. Se requiere escalera.', imagen:true, categoria:'Pintura' },
+        { id: 3, tipo:'cliente', titulo:'Reparar enchufe suelto en dormitorio', cliente:'Daniela Soto', barrio:'Providencia, Santiago', presupuesto:'$25.000', fecha:'ayer 09:05', descripcion:'El enchufe está flojo y chisporrotea. Corté la luz. Urgente para hoy.', imagen:false, categoria:'Electricidad' },
+        { id: 101, tipo:'maestro', titulo:'Soy Daniel, carpintero y electricista', cliente:'Daniel Gómez (Maestro)', barrio:'Santiago Centro', presupuesto:'Portafolio', fecha:'hoy 08:40', descripcion:'Portafolio de trabajos: muebles a medida, instalación de luminarias, canalizaciones. Disponible L-S 9:00–18:00.', imagen:false, categoria:'Carpintería · Electricidad' },
+        { id: 102, tipo:'maestro', titulo:'Paula — Gasfitería y soldadura', cliente:'Paula Herrera (Maestra)', barrio:'La Florida', presupuesto:'Portafolio', fecha:'hoy 11:12', descripcion:'Cambio de llaves, reparación de filtraciones, soldadura de cobre, emergencias 24/7.', imagen:false, categoria:'Gasfitería' }
+      ],
+      chats: {},
+      ratings: {}
+    };
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+    function navigate(route, params={}){
+      state.route = route;
+      if (params.postId !== undefined) state.selectedPostId = params.postId;
+      render();
+      $('#view')?.scrollTo({top:0,behavior:'smooth'});
+    }
+    function setActiveTab(tab){ $$('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab)); }
+    function hammerSVG(active){
+      return `
+        <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+          <path class="${active?'fill':''}" d="M2 21l7-7 1 1-7 7H2zM11.5 13.5l-1-1 5.8-5.8-1.2-1.2L14 6 12 4l2.4-2.4c.6-.6 1.6-.6 2.2 0l3.8 3.8c.6.6.6 1.6 0 2.2L18 10l.5.5-1.2 1.2-1.3-1.3-4.5 4.5z"/>
+          <path class="stroke" d="M2 21l7-7m2 2l4.5-4.5M14 6l-2-2m4.4-2.4l3.8 3.8c.6.6.6 1.6 0 2.2L18 10m-1.5 1.5-1.3-1.3"/>
+        </svg>`;
+    }
+    function Rating(name){
+      const current = state.ratings[name] || 0;
+      return `<div class="rating" data-rate-for="${name}">
+        ${Array.from({length:5}, (_,i)=>`<span class="hammer ${i<current?'active':'inactive'}" data-hammer="${i+1}" title="${i+1}/5">${hammerSVG(i<current)}</span>`).join('')}
+      </div>`;
+    }
+    function PostCard(p){
+      const roleTag = p.tipo==='cliente' ? 'Cliente' : 'Maestro';
+      const roleStyle = p.tipo==='cliente' ? '' : 'background:#e0f2fe;border-color:#93c5fd;color:#0c4a6e';
+      return `
+        <article class="card pad post">
+          <header class="post-header">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <div style="font-weight:700">${p.cliente}</div>
+              <div class="muted" style="font-size:12px">${p.barrio} · ${p.fecha}</div>
+            </div>
+          </header>
+          <div class="img-ph">INSERTAR IMAGEN AQUÍ</div>
+          <h3 style="margin:0">${p.titulo}</h3>
+          <div class="row" style="flex-wrap:wrap;gap:6px 8px">
+            <span class="tag" style="${roleStyle}">${roleTag}</span>
+            <span class="tag">${p.categoria}</span>
+            <span class="tag">${p.presupuesto}</span>
+          </div>
+          <p class="muted" style="margin:0">${p.descripcion}</p>
+          <div class="space-between" style="margin-top:6px;gap:10px;flex-wrap:wrap">
+            <div>${Rating(p.cliente)}</div>
+            <div class="row" style="gap:8px;flex-wrap:wrap">
+              <button class="btn" data-open="${p.id}">Ver</button>
+              <button class="btn btn-primary" data-chat="${p.id}">Conversar</button>
+            </div>
+          </div>
+        </article>`;
+    }
+    function LoginHero(){
+      return `
+        <section class="splash-login">
+          <div class="logo-wrap">
+            <div class="logo-ring card pad"><div class="logo-core"></div></div>
+            <h1 style="margin:6px 0 0;text-align:center">HogarPro</h1>
+            <p class="muted" style="margin:0;text-align:center">Conecta clientes y maestros para arreglos del hogar</p>
+          </div>
+          <div class="card pad grid" style="gap:12px">
+            <h2 style="margin:0">Ingresar o Registrarme</h2>
+            <div class="grid">
+              <label class="label" for="email">Correo</label>
+              <input class="input" id="email" type="email" placeholder="tucorreo@ejemplo.com" autofocus />
+            </div>
+            <div class="grid">
+              <label class="label" for="pass">Contraseña</label>
+              <input class="input" id="pass" type="password" placeholder="••••••••" />
+            </div>
+            <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px">
+              <button class="btn" data-action="fake-register">Registrarme</button>
+              <button class="btn btn-primary" data-action="fake-login">Ingresar</button>
+            </div>
+            <p class="muted" style="font-size:12px;margin:0">* Demo educativa: cualquier correo/clave funciona.</p>
+          </div>
+        </section>`;
+    }
+    function Feed(){ const cards = state.posts.map(PostCard).join(''); return `<section class="grid" style="gap:12px;padding:12px">${cards}</section>`; }
+    function PostDetail(post){
+      return `
+        <section class="grid" style="gap:12px;padding:12px">
+          <div class="card pad grid" style="gap:12px">
+            <button class="btn" data-action="back-feed">← Volver</button>
+            <div class="img-ph" style="height:220px">INSERTAR IMAGEN AQUÍ</div>
+            <h2 style="margin:0">${post.titulo}</h2>
+            <div class="muted">${post.cliente} · ${post.barrio} · ${post.fecha}</div>
+            <div class="row" style="gap:8px;flex-wrap:wrap">
+              <span class="tag">${post.tipo==='cliente'?'Cliente':'Maestro'}</span>
+              <span class="tag">${post.categoria}</span>
+              <span class="tag">${post.presupuesto}</span>
+            </div>
+            <p style="margin:0">${post.descripcion}</p>
+            <div class="space-between" style="margin-top:8px;gap:8px;flex-wrap:wrap">
+              <div>${Rating(post.cliente)}</div>
+              <div>
+                <button class="btn" data-action="back-feed">Cancelar</button>
+                <button class="btn btn-primary" data-action="go-chat" data-id="${post.id}">Iniciar conversación</button>
+              </div>
+            </div>
+          </div>
+        </section>`;
+    }
+    function ChatView(post){
+      const convo = (state.chats[post.id] ||= [
+        {who:'them', text:`Hola, soy ${post.cliente}. Gracias por tu interés.`},
+        {who:'them', text:'¿Puedes confirmarme tu disponibilidad y un costo estimado?'},
+        {who:'me', text:'¡Hola! Hoy puedo a las 17:30. Conversamos detalles en el lugar.'}
+      ]);
+      const bubbles = convo.map(m => `
+        <div>
+          <div class="bubble ${m.who==='me'?'me':'them'}">${m.text}</div>
+          <div class="ts ${m.who==='me'?'me':''}">${m.who==='me'?'Tú':'Cliente'} · ahora</div>
+        </div>
+      `).join('');
+      return `
+        <section class="grid" style="gap:12px;padding:12px">
+          <div class="card pad">
+            <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap">
+              <button class="btn" data-action="back-feed">← Volver</button>
+              <div class="muted">Chateando con ${post.cliente}</div>
+            </div>
+          </div>
+          <div class="card pad chat" id="chatBox" style="min-height:360px;max-height:460px;overflow:auto">${bubbles}</div>
+          <div class="row" style="padding-bottom:4px">
+            <input id="msg" class="input" placeholder="Escribe un mensaje..." style="flex:1" />
+            <button class="btn btn-primary" data-action="send" data-id="${post.id}">Enviar</button>
+          </div>
+        </section>`;
+    }
+    function ChatsList(){
+      const items = Object.keys(state.chats).map(id=>{
+        const p = state.posts.find(pp=>pp.id===Number(id)); if (!p) return '';
+        const last = state.chats[id][state.chats[id].length-1];
+        return `<div class="card pad row" style="justify-content:space-between">
+          <div>
+            <div style="font-weight:700">${p.cliente}</div>
+            <div class="muted" style="font-size:12px;max-width:48ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${last.text}</div>
+          </div>
+          <div class="row" style="gap:8px">
+            <button class="btn" data-open="${p.id}">Ver aviso</button>
+            <button class="btn btn-primary" data-chat="${p.id}">Abrir chat</button>
+          </div>
+        </div>`;
+      }).join('');
+      return `<section class="grid" style="gap:12px;padding:12px">${items || `<div class="card pad muted">Aún no tienes chats. Abre uno desde el feed.</div>`}</section>`;
+    }
+    function Profile(){
+      const email = state.user?.email || 'demo@hogar.pro';
+      return `
+        <section class="grid" style="gap:12px;padding:12px;max-width:100%">
+          <div class="card pad grid" style="gap:12px">
+            <h2 style="margin:0">Tu perfil</h2>
+            <div class="row" style="gap:12px">
+              <div class="avatar" aria-hidden="true" style="width:54px;height:54px"></div>
+              <div>
+                <div style="font-weight:700">Usuario Demo</div>
+                <div class="muted">${email}</div>
+              </div>
+            </div>
+            <div class="grid">
+              <label class="label">Sobre ti</label>
+              <textarea class="input" rows="4" placeholder="Describe tu experiencia (solo demo, no se guarda)"></textarea>
+            </div>
+            <div class="row" style="justify-content:flex-end">
+              <button class="btn">Guardar (simulado)</button>
+            </div>
+          </div>
+        </section>`;
+    }
+    function render(){
+      const view = document.getElementById('view');
+      const tabbar = document.getElementById('tabbar');
+      const inside = ['feed','post','chat','chats','profile'].includes(state.route);
+      tabbar.style.display = inside ? 'block' : 'none';
+      if (state.route==='loginHero'){ view.innerHTML = LoginHero(); setActiveTab(null); }
+      if (state.route==='feed'){ view.innerHTML = Feed(); setActiveTab('feed'); }
+      if (state.route==='post'){ view.innerHTML = PostDetail(state.posts.find(p=>p.id===state.selectedPostId)); setActiveTab('feed'); }
+      if (state.route==='chat'){ view.innerHTML = ChatView(state.posts.find(p=>p.id===state.selectedPostId)); setActiveTab('chats'); }
+      if (state.route==='chats'){ view.innerHTML = ChatsList(); setActiveTab('chats'); }
+      if (state.route==='profile'){ view.innerHTML = Profile(); setActiveTab('profile'); }
+      $$('.rating').forEach(r => {
+        r.addEventListener('click', (e)=>{
+          const span = e.target.closest('[data-hammer]'); if (!span) return;
+          const forName = r.dataset.rateFor; const value = Number(span.dataset.hammer);
+          state.ratings[forName] = value; render();
+        });
+      });
+    }
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if (t.matches('[data-action="fake-register"]')) alert('Registro simulado ✅');
+      if (t.matches('[data-action="fake-login"]')){ state.user={email: $('#email')?.value||'demo@demo.com'}; navigate('feed'); }
+      if (t.matches('[data-nav="login"]')) navigate('loginHero');
+      if (t.matches('.tab')){ const tab=t.dataset.tab; if (tab==='feed') navigate('feed'); if (tab==='chats') navigate('chats'); if (tab==='profile') navigate('profile'); }
+      if (t.matches('[data-open]')) navigate('post', {postId: Number(t.dataset.open)});
+      if (t.matches('[data-chat]')) navigate('chat', {postId: Number(t.dataset.chat)});
+      if (t.matches('[data-action="back-feed"]')) navigate('feed');
+      if (t.matches('[data-action="go-chat"]')) navigate('chat', {postId: Number(t.dataset.id)});
+      if (t.matches('[data-action="send"]')){
+        const id = Number(t.dataset.id); const input = $('#msg'); const text = input.value.trim(); if (!text) return;
+        (state.chats[id] ||= []).push({who:'me', text}); input.value=''; render();
+        setTimeout(()=>{ (state.chats[id] ||= []).push({who:'them', text:'Perfecto, quedamos así. Te aviso cualquier cambio. 🙌'}); render(); $('#chatBox')?.scrollTo({top:99999,behavior:'smooth'}); }, 400);
+      }
+    });
+    document.addEventListener('keydown', (e)=>{
+      if (state.route==='loginHero' && e.key==='Enter') document.querySelector('[data-action="fake-login"]').click();
+      if (state.route==='chat' && e.key==='Enter') document.querySelector('[data-action="send"]').click();
+    });
+    render();
+    // PWA: registrar Service Worker
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(()=>{});
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
